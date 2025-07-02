@@ -1,58 +1,17 @@
-<!-- Inside index.html -->
-<script>
-  const balloon = document.getElementById("balloon");
-  let scale = 1;
-  let inflating = false;
-
-  // Load Sounds
-  const inflateSound = new Audio('sounds/inflate.mp3');
-  const explodeSound = new Audio('sounds/explode.mp3');
-
-  function startInflate() {
-    inflating = true;
-    inflateSound.currentTime = 0;
-    inflateSound.loop = true;
-    inflateSound.play();
-  }
-
-  function stopInflate() {
-    inflating = false;
-    inflateSound.pause();
-  }
-
-  function animate() {
-    if (inflating && scale < 5) {
-      scale += 0.03;
-      balloon.style.transform = `scale(${scale})`;
-      if (scale >= 4.9) {
-        explode();
-        return;
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 50px;
       }
-    }
-    requestAnimationFrame(animate);
-  }
-
-  function explode() {
-    stopInflate();
-    balloon.style.backgroundColor = "black";
-    balloon.style.transition = "all 0.3s ease";
-    balloon.style.transform = `scale(${scale * 1.5})`;
-    balloon.style.opacity = "0";
-
-    explodeSound.play();
-
-    setTimeout(() => {
-      window.location.href = "main.html"; // Redirect to main page
-    }, 1000);
-  }
-
-  document.body.addEventListener("mousedown", () => {
-    if (!inflating) {
-      document.getElementById("message").style.display = "none";
-      startInflate();
-    }
-  });
-
-  document.body.addEventListener("mouseup", stopInflate);
-  animate();
-</script>
+    </style>
+  </head>
+  <body>
+    <h1>Hello! 🎉</h1>
+    <p>My website is working now!</p>
+  </body>
+</html>
