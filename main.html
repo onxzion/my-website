@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Memecoin Balloon</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+    #balloon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: cyan;
+      transition: transform 1s ease;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 20px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="balloon"></div>
+  <div id="status">PRE-LAUNCH SIMULATION - BALLOON IS PUMPING!</div>
+  <input type="text" id="contractAddress" placeholder="Enter Contract Address (CA)" disabled />
+
+  <script>
+    const balloon = document.getElementById("balloon");
+    const statusText = document.getElementById("status");
+
+    let baseSize = 100;
+    let currentScale = 1;
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function simulateMarketCap() {
+      const change = randomRange(-0.1, 0.3); // Random up/down
+      currentScale += change;
+      currentScale = Math.max(0.5, Math.min(currentScale, 3)); // Clamp size
+
+      const newSize = baseSize * currentScale;
+      balloon.style.width = `${newSize}px`;
+      balloon.style.height = `${newSize}px`;
+
+      // Display message
+      if (change > 0.15) {
+        statusText.innerText = "🚀 MASSIVE PUMP DETECTED!";
+      } else if (change < -0.05) {
+        statusText.innerText = "📉 DUMP ALERT! HODL?";
+      } else {
+        statusText.innerText = "📈 BALLOON IS PUMPING...";
+      }
+
+      requestAnimationFrame(simulateMarketCap);
+    }
+
+    simulateMarketCap();
+  </script>
+</body>
+</html>
